@@ -1,0 +1,61 @@
+name: zammad
+title: Zammad
+icon: zammad
+docs: https://wodby.com/docs/2.0/stacks/catalog/zammad/
+
+services:
+- name: zammad
+  title: Zammad
+  service: zammad
+  required: true
+  main: true
+  links:
+  - name: db
+    service: postgres
+  - name: redis
+    service: redis
+  - name: memcached
+    service: memcached
+  - name: elasticsearch
+    service: elasticsearch
+  - name: sendmail
+    service: opensmtpd
+
+- name: postgres
+  title: PostgreSQL
+  service: postgres
+  required: true
+  env:
+  # Each Zammad process opens up to 50 connections.
+  - name: POSTGRES_MAX_CONNECTIONS
+    value: '300'
+  volumes:
+  - name: data
+    size: 20
+
+- name: redis
+  title: Redis
+  service: redis
+  required: true
+  volumes:
+  - name: data
+    size: 1
+
+- name: memcached
+  title: Memcached
+  service: memcached
+  required: true
+  env:
+  - name: MEMCACHED_MEMORY
+    value: '256'
+
+- name: elasticsearch
+  title: Elasticsearch
+  service: elasticsearch
+  volumes:
+  - name: data
+    size: 10
+
+- name: opensmtpd
+  title: OpenSMTPD
+  service: opensmtpd
