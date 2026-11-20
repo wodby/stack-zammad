@@ -1,6 +1,7 @@
 name: zammad
 title: Zammad
 icon: zammad
+category: collaboration
 docs: https://wodby.com/docs/2.0/stacks/catalog/zammad/
 
 services:
